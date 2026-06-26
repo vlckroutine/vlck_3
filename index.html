@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:#0d0d0d}
+  ::selection{background:#1A4EFF;color:#fff}
+  ::-webkit-scrollbar{width:10px}
+  ::-webkit-scrollbar-track{background:#0d0d0d}
+  ::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:10px}
+  input::placeholder,textarea::placeholder{color:#6b6b6b}
+  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+</style>
+</helmet>
+<div style="min-height:100vh;background:#0d0d0d;color:#fff;font-family:Pretendard,-apple-system,sans-serif;--accent:{{ accent }};overflow-x:hidden">
+
+<nav style="position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:18px clamp(20px,5vw,64px);background:rgba(13,13,13,0.72);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,0.07)">
+  <a href="#top" style="display:flex;align-items:center;gap:11px;text-decoration:none">
+    <img src="./uploads/logo.png" alt="VLCK 로고" style="height:34px;width:auto;object-fit:contain">
+    <span style="display:flex;flex-direction:column;line-height:1.05">
+      <span style="font-weight:800;font-size:18px;letter-spacing:1px;color:#fff">VLCK</span>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:2.5px;color:#8a8a8a;text-transform:uppercase">Marketing Agency</span>
+    </span>
+  </a>
+  <div style="display:flex;align-items:center;gap:34px">
+    <a href="#brand" style="text-decoration:none;color:#b3b3b3;font-size:14px;font-weight:500">브랜드</a>
+    <a href="#services" style="text-decoration:none;color:#b3b3b3;font-size:14px;font-weight:500">서비스</a>
+    <a href="#results" style="text-decoration:none;color:#b3b3b3;font-size:14px;font-weight:500">성과</a>
+    <a href="#why" style="text-decoration:none;color:#b3b3b3;font-size:14px;font-weight:500">강점</a>
+    <a href="#contact" style="display:inline-flex;align-items:center;gap:8px;text-decoration:none;background:var(--accent,#1A4EFF);color:#fff;font-size:14px;font-weight:700;padding:11px 22px;border-radius:999px;box-shadow:0 8px 22px rgba(26,78,255,0.4)" style-hover="filter:brightness(1.12);transform:translateY(-1px)">무료 상담</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header id="top" style="position:relative;max-width:1240px;margin:0 auto;padding:clamp(70px,9vw,130px) clamp(20px,5vw,64px) clamp(60px,7vw,100px);display:grid;grid-template-columns:1.05fr 0.95fr;gap:clamp(36px,5vw,72px);align-items:center">
+  <div aria-hidden="true" style="position:absolute;top:-120px;left:-160px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(26,78,255,0.32),transparent 65%);filter:blur(30px);pointer-events:none"></div>
+  <div aria-hidden="true" style="position:absolute;bottom:-180px;right:-120px;width:460px;height:460px;border-radius:50%;background:radial-gradient(circle,rgba(255,214,0,0.10),transparent 65%);filter:blur(30px);pointer-events:none"></div>
+
+  <div style="position:relative">
+    <span style="display:inline-flex;align-items:center;gap:9px;padding:8px 16px;border:1px solid rgba(255,255,255,0.14);border-radius:999px;font-size:12.5px;font-weight:600;color:#cbcbcb;margin-bottom:30px">
+      <span style="width:7px;height:7px;border-radius:50%;background:#FFD600;box-shadow:0 0 10px #FFD600"></span>
+      중소기업·소상공인 마케팅 파트너
+    </span>
+    <h1 style="font-size:clamp(40px,6.4vw,76px);line-height:1.04;font-weight:800;letter-spacing:-2px;margin-bottom:26px">
+      작은 브랜드도,<br><span style="color:var(--accent,#1A4EFF)">크게 빛나게.</span>
+    </h1>
+    <p style="font-size:clamp(16px,1.7vw,19px);line-height:1.65;color:#b3b3b3;max-width:520px;margin-bottom:40px">
+      자본이 아닌 <strong style="color:#fff;font-weight:700">전략과 창의성</strong>으로 경쟁합니다. 대기업만 누리던 수준 높은 마케팅을, 합리적인 비용으로 시작하세요.
+    </p>
+    <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:44px">
+      <a href="#contact" style="display:inline-flex;align-items:center;gap:9px;text-decoration:none;background:var(--accent,#1A4EFF);color:#fff;font-size:16px;font-weight:700;padding:17px 34px;border-radius:999px;box-shadow:0 14px 34px rgba(26,78,255,0.42)" style-hover="filter:brightness(1.12);transform:translateY(-2px)">무료 상담 신청하기 →</a>
+      <a href="#services" style="display:inline-flex;align-items:center;text-decoration:none;background:transparent;color:#fff;font-size:16px;font-weight:700;padding:17px 30px;border-radius:999px;border:1px solid rgba(255,255,255,0.2)" style-hover="background:rgba(255,255,255,0.06)">서비스 둘러보기</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:26px;flex-wrap:wrap">
+      <div><div style="font-family:'JetBrains Mono',monospace;font-size:26px;font-weight:700;color:#fff">350%<span style="color:var(--accent,#1A4EFF)">+</span></div><div style="font-size:12px;color:#8a8a8a;margin-top:2px">평균 광고 ROAS</div></div>
+      <div style="width:1px;height:34px;background:rgba(255,255,255,0.1)"></div>
+      <div><div style="font-family:'JetBrains Mono',monospace;font-size:26px;font-weight:700;color:#fff">+300%</div><div style="font-size:12px;color:#8a8a8a;margin-top:2px">3개월 팔로워 증가</div></div>
+      <div style="width:1px;height:34px;background:rgba(255,255,255,0.1)"></div>
+      <div><div style="font-family:'JetBrains Mono',monospace;font-size:26px;font-weight:700;color:#fff">2024</div><div style="font-size:12px;color:#8a8a8a;margin-top:2px">설립 · 대한민국 전역</div></div>
+    </div>
+  </div>
+
+  <div style="position:relative">
+    <div style="position:relative;aspect-ratio:4/5;border-radius:18px;overflow:hidden;background:#141414;border:1px solid rgba(255,255,255,0.08);box-shadow:0 30px 70px rgba(0,0,0,0.6)">
+      <img src="./uploads/Gemini_Generated_Image_4oekdg4oekdg4oek.png" alt="캠페인 대시보드 비주얼" style="width:100%;height:100%;object-fit:cover;display:block">
+    </div>
+    <div style="position:absolute;top:26px;left:-22px;display:flex;align-items:center;gap:10px;background:#1b1b1b;border:1px solid rgba(255,255,255,0.1);padding:13px 17px;border-radius:14px;box-shadow:0 16px 40px rgba(0,0,0,0.55);animation:floaty 5s ease-in-out infinite">
+      <span style="width:34px;height:34px;border-radius:9px;background:rgba(26,78,255,0.16);display:grid;place-items:center;font-size:16px">📈</span>
+      <span style="line-height:1.2"><span style="display:block;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:15px;color:#fff">전환율 2배</span><span style="font-size:11px;color:#8a8a8a">온라인몰 평균</span></span>
+    </div>
+    <div style="position:absolute;bottom:34px;right:-20px;display:flex;align-items:center;gap:10px;background:#1b1b1b;border:1px solid rgba(255,255,255,0.1);padding:13px 17px;border-radius:14px;box-shadow:0 16px 40px rgba(0,0,0,0.55);animation:floaty 6s ease-in-out infinite 0.6s">
+      <span style="width:34px;height:34px;border-radius:9px;background:rgba(255,214,0,0.16);display:grid;place-items:center;font-size:16px">🏆</span>
+      <span style="line-height:1.2"><span style="display:block;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:15px;color:#fff">상위 3위</span><span style="font-size:11px;color:#8a8a8a">네이버 플레이스</span></span>
+    </div>
+  </div>
+</header>
+
+<!-- BRAND MEANING -->
+<section id="brand" style="border-top:1px solid rgba(255,255,255,0.06);padding:clamp(72px,9vw,120px) 0">
+  <div style="max-width:1240px;margin:0 auto;padding:0 clamp(20px,5vw,64px)">
+    <div style="text-align:center;max-width:680px;margin:0 auto 56px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:3px;color:var(--accent,#1A4EFF);text-transform:uppercase;margin-bottom:18px">Who we are</div>
+      <h2 style="font-size:clamp(30px,4vw,46px);font-weight:800;letter-spacing:-1.2px;line-height:1.15;margin-bottom:18px">VLCK는 네 글자의 약속입니다</h2>
+      <p style="font-size:17px;color:#b3b3b3;line-height:1.6">고객의 브랜드가 <strong style="color:#fff">보이고, 울려 퍼지고, 명확하게 전달되어, 기억되도록.</strong> 그 네 단계를 책임집니다.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px">
+      <div style="background:#151515;border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:32px 26px" style-hover="border-color:rgba(26,78,255,0.5);transform:translateY(-4px)">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:52px;font-weight:700;color:var(--accent,#1A4EFF);line-height:1;margin-bottom:22px">V</div>
+        <div style="font-size:19px;font-weight:800;margin-bottom:5px">Visible</div>
+        <div style="font-size:13px;font-weight:700;color:#cbcbcb;margin-bottom:12px">보이고</div>
+        <p style="font-size:13.5px;color:#8f8f8f;line-height:1.6">검색·노출 최적화로 고객이 당신을 먼저 발견하게 만듭니다.</p>
+      </div>
+      <div style="background:#151515;border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:32px 26px" style-hover="border-color:rgba(26,78,255,0.5);transform:translateY(-4px)">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:52px;font-weight:700;color:var(--accent,#1A4EFF);line-height:1;margin-bottom:22px">L</div>
+        <div style="font-size:19px;font-weight:800;margin-bottom:5px">Loud</div>
+        <div style="font-size:13px;font-weight:700;color:#cbcbcb;margin-bottom:12px">울려 퍼지고</div>
+        <p style="font-size:13.5px;color:#8f8f8f;line-height:1.6">SNS·콘텐츠·바이럴로 브랜드의 목소리를 크게 키웁니다.</p>
+      </div>
+      <div style="background:#151515;border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:32px 26px" style-hover="border-color:rgba(26,78,255,0.5);transform:translateY(-4px)">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:52px;font-weight:700;color:var(--accent,#1A4EFF);line-height:1;margin-bottom:22px">C</div>
+        <div style="font-size:19px;font-weight:800;margin-bottom:5px">Clear</div>
+        <div style="font-size:13px;font-weight:700;color:#cbcbcb;margin-bottom:12px">명확하게 전달되고</div>
+        <p style="font-size:13.5px;color:#8f8f8f;line-height:1.6">복잡함을 단순하게, 메시지를 또렷하게 정리합니다.</p>
+      </div>
+      <div style="background:#151515;border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:32px 26px" style-hover="border-color:rgba(26,78,255,0.5);transform:translateY(-4px)">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:52px;font-weight:700;color:#FFD600;line-height:1;margin-bottom:22px">K</div>
+        <div style="font-size:19px;font-weight:800;margin-bottom:5px">Known</div>
+        <div style="font-size:13px;font-weight:700;color:#cbcbcb;margin-bottom:12px">기억되도록</div>
+        <p style="font-size:13.5px;color:#8f8f8f;line-height:1.6">일관된 브랜드 경험으로 오래 기억되는 브랜드를 만듭니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" style="background:#0a0a0a;border-top:1px solid rgba(255,255,255,0.06);padding:clamp(72px,9vw,120px) 0">
+  <div style="max-width:1240px;margin:0 auto;padding:0 clamp(20px,5vw,64px)">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px;margin-bottom:48px">
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:3px;color:var(--accent,#1A4EFF);text-transform:uppercase;margin-bottom:16px">What we do</div>
+        <h2 style="font-size:clamp(30px,4vw,46px);font-weight:800;letter-spacing:-1.2px;line-height:1.1">주요 서비스</h2>
+      </div>
+      <p style="font-size:15px;color:#8f8f8f;max-width:340px;line-height:1.6">광고부터 콘텐츠, 브랜드 전략까지. 흩어진 마케팅을 하나의 팀에서 통합 운영합니다.</p>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,0.09)">
+      <sc-for list="{{ services }}" as="svc" hint-placeholder-count="5">
+        <div style="display:grid;grid-template-columns:64px 1fr;gap:clamp(16px,3vw,40px);align-items:start;padding:32px 14px;border-bottom:1px solid rgba(255,255,255,0.09);transition:background .2s" style-hover="background:rgba(255,255,255,0.025)">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:17px;font-weight:700;color:var(--accent,#1A4EFF);padding-top:4px">{{ svc.num }}</div>
+          <div style="display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1.4fr);gap:clamp(16px,3vw,48px);align-items:start">
+            <div>
+              <h3 style="font-size:clamp(20px,2.4vw,26px);font-weight:800;letter-spacing:-0.5px;margin-bottom:12px">{{ svc.title }}</h3>
+              <div style="display:flex;flex-wrap:wrap;gap:7px">
+                <sc-for list="{{ svc.tags }}" as="tag" hint-placeholder-count="3">
+                  <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#9a9a9a;border:1px solid rgba(255,255,255,0.13);padding:5px 11px;border-radius:999px">{{ tag }}</span>
+                </sc-for>
+              </div>
+            </div>
+            <p style="font-size:15.5px;color:#a8a8a8;line-height:1.7;padding-top:4px">{{ svc.desc }}</p>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- METRICS -->
+<section id="results" style="padding:clamp(72px,9vw,120px) 0;background:linear-gradient(180deg,#0d0d0d,#0a0a0a)">
+  <div style="max-width:1240px;margin:0 auto;padding:0 clamp(20px,5vw,64px)">
+    <div style="text-align:center;margin-bottom:54px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:3px;color:var(--accent,#1A4EFF);text-transform:uppercase;margin-bottom:16px">Proven results</div>
+      <h2 style="font-size:clamp(30px,4vw,46px);font-weight:800;letter-spacing:-1.2px;line-height:1.12">숫자로 증명하는 성과</h2>
+      <p style="font-size:14px;color:#7a7a7a;margin-top:14px">※ 유사 규모 프로젝트 기준 평균 성과 지표입니다.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px">
+      <sc-for list="{{ metrics }}" as="m" hint-placeholder-count="4">
+        <div style="background:#151515;border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:38px 28px;text-align:center" style-hover="border-color:rgba(26,78,255,0.5)">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(38px,4.6vw,56px);font-weight:700;color:#fff;line-height:1;letter-spacing:-2px;margin-bottom:16px">{{ m.value }}</div>
+          <div style="font-size:14.5px;color:#a8a8a8;line-height:1.55;white-space:pre-line">{{ m.label }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- WHY VLCK -->
+<section id="why" style="background:#0a0a0a;border-top:1px solid rgba(255,255,255,0.06);padding:clamp(72px,9vw,120px) 0">
+  <div style="max-width:1240px;margin:0 auto;padding:0 clamp(20px,5vw,64px);display:grid;grid-template-columns:0.85fr 1.15fr;gap:clamp(40px,5vw,80px);align-items:start">
+    <div style="position:sticky;top:100px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:3px;color:var(--accent,#1A4EFF);text-transform:uppercase;margin-bottom:16px">Why VLCK</div>
+      <h2 style="font-size:clamp(30px,4vw,46px);font-weight:800;letter-spacing:-1.2px;line-height:1.14;margin-bottom:22px">VLCK가<br>다른 이유</h2>
+      <p style="font-size:16px;color:#a8a8a8;line-height:1.7;margin-bottom:30px">"마케팅을 잘 아는 옆집 형·언니" 처럼. 전문적이지만 딱딱하지 않게, 고객의 예산을 내 돈처럼 씁니다.</p>
+      <a href="#contact" style="display:inline-flex;align-items:center;gap:9px;text-decoration:none;background:var(--accent,#1A4EFF);color:#fff;font-size:15px;font-weight:700;padding:15px 28px;border-radius:999px;box-shadow:0 12px 30px rgba(26,78,255,0.4)" style-hover="filter:brightness(1.12);transform:translateY(-2px)">지금 상담받기 →</a>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+      <sc-for list="{{ reasons }}" as="r" hint-placeholder-count="4">
+        <div style="background:#151515;border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:30px 26px" style-hover="border-color:rgba(255,255,255,0.18);transform:translateY(-3px)">
+          <div style="width:42px;height:42px;border-radius:11px;background:rgba(26,78,255,0.14);display:grid;place-items:center;font-size:20px;margin-bottom:20px">{{ r.icon }}</div>
+          <h3 style="font-size:18px;font-weight:800;margin-bottom:10px">{{ r.title }}</h3>
+          <p style="font-size:14px;color:#9a9a9a;line-height:1.65">{{ r.desc }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT / CTA -->
+<section id="contact" style="position:relative;padding:clamp(72px,9vw,120px) 0;overflow:hidden;border-top:1px solid rgba(255,255,255,0.06)">
+  <div aria-hidden="true" style="position:absolute;top:-140px;left:50%;transform:translateX(-50%);width:760px;height:420px;background:radial-gradient(ellipse,rgba(26,78,255,0.22),transparent 70%);filter:blur(40px);pointer-events:none"></div>
+  <div style="position:relative;max-width:1240px;margin:0 auto;padding:0 clamp(20px,5vw,64px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,5vw,72px);align-items:center">
+    <div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:3px;color:#FFD600;text-transform:uppercase;margin-bottom:18px">Free consultation</div>
+      <h2 style="font-size:clamp(32px,4.4vw,52px);font-weight:800;letter-spacing:-1.6px;line-height:1.1;margin-bottom:20px">마케팅이<br>막막하신가요?</h2>
+      <p style="font-size:18px;color:#cbcbcb;line-height:1.6;margin-bottom:38px">"첫 상담은 무료입니다.<br>고민하지 말고 연락주세요." 비즈니스 현황과 목표만 알려주시면, 맞춤 전략을 제안드립니다.</p>
+      <div style="display:flex;flex-direction:column;gap:2px">
+        <sc-for list="{{ channels }}" as="ch" hint-placeholder-count="4">
+          <div style="display:flex;align-items:center;gap:16px;padding:15px 4px;border-bottom:1px solid rgba(255,255,255,0.08)">
+            <span style="font-size:18px;width:24px;text-align:center">{{ ch.icon }}</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1.5px;color:#7a7a7a;text-transform:uppercase;width:72px">{{ ch.label }}</span>
+            <span style="font-size:15px;font-weight:600;color:#eaeaea">{{ ch.value }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <sc-if value="{{ showForm }}" hint-placeholder-val="{{ true }}">
+      <div style="background:#141414;border:1px solid rgba(255,255,255,0.09);border-radius:22px;padding:clamp(28px,3vw,44px);box-shadow:0 30px 70px rgba(0,0,0,0.55)">
+        <sc-if value="{{ submitted }}">
+          <div style="text-align:center;padding:40px 10px">
+            <div style="width:64px;height:64px;border-radius:50%;background:rgba(26,78,255,0.16);display:grid;place-items:center;font-size:30px;margin:0 auto 22px">✅</div>
+            <h3 style="font-size:24px;font-weight:800;margin-bottom:12px">신청이 완료되었습니다</h3>
+            <p style="font-size:15px;color:#a8a8a8;line-height:1.6">담당자가 영업일 기준 24시간 내에<br>연락드리겠습니다. 감사합니다!</p>
+          </div>
+        </sc-if>
+        <sc-if value="{{ notSubmitted }}">
+          <div>
+            <h3 style="font-size:22px;font-weight:800;margin-bottom:6px">무료 상담 신청</h3>
+            <p style="font-size:13.5px;color:#8a8a8a;margin-bottom:26px">아래 정보를 남겨주시면 빠르게 연락드릴게요.</p>
+            <form onSubmit="{{ onSubmit }}" style="display:flex;flex-direction:column;gap:14px">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+                <label style="display:flex;flex-direction:column;gap:7px">
+                  <span style="font-size:12px;font-weight:600;color:#b3b3b3">이름 *</span>
+                  <input value="{{ name }}" onInput="{{ onName }}" placeholder="홍길동" style="background:#1f1f1f;border:1px solid rgba(255,255,255,0.1);border-radius:11px;padding:13px 15px;color:#fff;font-size:14px;font-family:Pretendard,sans-serif;outline:none" style-focus="border-color:var(--accent,#1A4EFF)" />
+                </label>
+                <label style="display:flex;flex-direction:column;gap:7px">
+                  <span style="font-size:12px;font-weight:600;color:#b3b3b3">업종 / 회사명</span>
+                  <input value="{{ biz }}" onInput="{{ onBiz }}" placeholder="예) 카페 · 쇼핑몰" style="background:#1f1f1f;border:1px solid rgba(255,255,255,0.1);border-radius:11px;padding:13px 15px;color:#fff;font-size:14px;font-family:Pretendard,sans-serif;outline:none" style-focus="border-color:var(--accent,#1A4EFF)" />
+                </label>
+              </div>
+              <label style="display:flex;flex-direction:column;gap:7px">
+                <span style="font-size:12px;font-weight:600;color:#b3b3b3">연락처 *</span>
+                <input value="{{ phone }}" onInput="{{ onPhone }}" placeholder="010-0000-0000" style="background:#1f1f1f;border:1px solid rgba(255,255,255,0.1);border-radius:11px;padding:13px 15px;color:#fff;font-size:14px;font-family:Pretendard,sans-serif;outline:none" style-focus="border-color:var(--accent,#1A4EFF)" />
+              </label>
+              <label style="display:flex;flex-direction:column;gap:7px">
+                <span style="font-size:12px;font-weight:600;color:#b3b3b3">문의 내용</span>
+                <textarea value="{{ msg }}" onInput="{{ onMsg }}" rows="3" placeholder="현재 고민이나 목표를 자유롭게 적어주세요." style="background:#1f1f1f;border:1px solid rgba(255,255,255,0.1);border-radius:11px;padding:13px 15px;color:#fff;font-size:14px;font-family:Pretendard,sans-serif;outline:none;resize:vertical" style-focus="border-color:var(--accent,#1A4EFF)"></textarea>
+              </label>
+              <button type="submit" style="margin-top:6px;background:var(--accent,#1A4EFF);color:#fff;font-size:16px;font-weight:700;padding:16px;border:none;border-radius:12px;cursor:pointer;font-family:Pretendard,sans-serif;box-shadow:0 12px 30px rgba(26,78,255,0.4)" style-hover="filter:brightness(1.12)">무료 상담 신청하기</button>
+              <p style="font-size:11.5px;color:#6b6b6b;text-align:center;margin-top:2px">신청 시 개인정보 처리방침에 동의하는 것으로 간주됩니다.</p>
+            </form>
+          </div>
+        </sc-if>
+      </div>
+    </sc-if>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="border-top:1px solid rgba(255,255,255,0.07);padding:54px clamp(20px,5vw,64px) 40px">
+  <div style="max-width:1240px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:28px">
+    <div>
+      <div style="display:flex;align-items:center;gap:11px;margin-bottom:14px">
+        <span style="display:grid;place-items:center;width:32px;height:32px;border-radius:8px;background:var(--accent,#1A4EFF);font-family:'JetBrains Mono',monospace;font-weight:700;font-size:14px;color:#fff">V</span>
+        <span style="font-weight:800;font-size:17px;letter-spacing:1px">VLCK</span>
+      </div>
+      <p style="font-size:14px;color:#8a8a8a;line-height:1.6;max-width:300px">작은 브랜드도 크게 빛나는 마케팅.<br>중소기업·소상공인을 위한 실전형 마케팅 파트너.</p>
+    </div>
+    <div style="display:flex;gap:clamp(36px,6vw,80px);flex-wrap:wrap">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:2px;color:#5a5a5a;text-transform:uppercase;margin-bottom:2px">Menu</span>
+        <a href="#brand" style="text-decoration:none;color:#b3b3b3;font-size:14px">브랜드</a>
+        <a href="#services" style="text-decoration:none;color:#b3b3b3;font-size:14px">서비스</a>
+        <a href="#results" style="text-decoration:none;color:#b3b3b3;font-size:14px">성과</a>
+        <a href="#contact" style="text-decoration:none;color:#b3b3b3;font-size:14px">문의</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:2px;color:#5a5a5a;text-transform:uppercase;margin-bottom:2px">Contact</span>
+        <span style="color:#b3b3b3;font-size:14px">contact@vlck.co.kr</span>
+        <span style="color:#b3b3b3;font-size:14px">02-0000-0000</span>
+        <span style="color:#b3b3b3;font-size:14px">카카오톡 @VLCK</span>
+        <span style="color:#b3b3b3;font-size:14px">서울특별시</span>
+      </div>
+    </div>
+  </div>
+  <div style="max-width:1240px;margin:38px auto 0;padding-top:24px;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px">
+    <span style="font-size:12.5px;color:#6b6b6b">© 2024 VLCK Marketing Agency. All rights reserved.</span>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1.5px;color:#5a5a5a">VISIBLE · LOUD · CLEAR · KNOWN</span>
+  </div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#1A4EFF&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;showForm&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = { name: '', biz: '', phone: '', msg: '', submitted: false };
+
+  field(k) {
+    return (e) => this.setState({ [k]: e.target.value });
+  }
+
+  renderVals() {
+    const submit = (e) => {
+      e.preventDefault();
+      if (this.state.name.trim() && this.state.phone.trim()) {
+        this.setState({ submitted: true });
+      }
+    };
+    return {
+      accent: this.props.accent ?? '#1A4EFF',
+      showForm: this.props.showForm ?? true,
+      submitted: this.state.submitted,
+      notSubmitted: !this.state.submitted,
+      name: this.state.name,
+      biz: this.state.biz,
+      phone: this.state.phone,
+      msg: this.state.msg,
+      onName: this.field('name'),
+      onBiz: this.field('biz'),
+      onPhone: this.field('phone'),
+      onMsg: this.field('msg'),
+      onSubmit: submit,
+      services: [
+        { num: '01', title: '디지털 광고 운영', desc: '네이버 검색광고·GFA, 카카오, 메타(인스타·페이스북), 유튜브·구글까지. 채널별 특성에 맞춰 광고를 집행하고 데이터로 끊임없이 최적화합니다.', tags: ['네이버', '카카오', '메타', '구글·유튜브'] },
+        { num: '02', title: 'SNS 마케팅 & 콘텐츠 제작', desc: '인스타그램·블로그·유튜브 채널 운영 대행부터 카드뉴스, 숏폼 영상, 사진 콘텐츠 기획·제작과 브랜드 톤앤매너 가이드까지.', tags: ['채널 운영', '카드뉴스', '숏폼', '브랜드 톤'] },
+        { num: '03', title: '브랜드 전략 컨설팅', desc: '브랜드 아이덴티티(BI) 기획, 타겟 고객 분석과 포지셔닝, 경쟁사 분석 기반의 차별화 전략을 함께 설계합니다.', tags: ['BI 기획', '포지셔닝', '경쟁 분석'] },
+        { num: '04', title: '로컬 마케팅', desc: '네이버 플레이스(스마트플레이스)·구글 비즈니스 프로필 최적화, 지역 기반 광고 집행과 리뷰 관리로 동네 1등 매장을 만듭니다.', tags: ['플레이스', '구글 비즈니스', '리뷰 관리'] },
+        { num: '05', title: '바이럴 & 인플루언서 마케팅', desc: '블로그 체험단과 인스타그램 인플루언서 섭외·관리, 커뮤니티 바이럴 콘텐츠 기획으로 입소문을 설계합니다.', tags: ['체험단', '인플루언서', '커뮤니티'] },
+      ],
+      metrics: [
+        { value: '+300%', label: 'SNS 팔로워\n3개월 내 평균 증가' },
+        { value: 'TOP 3', label: '네이버 플레이스 노출\n평균 소요 6주' },
+        { value: '350%↑', label: '광고 ROAS\n광고비 대비 매출 평균' },
+        { value: '×2', label: '온라인몰 전환율\n평균 개선' },
+      ],
+      reasons: [
+        { icon: '📊', title: '데이터 기반의 의사결정', desc: '감이 아닌 데이터로 말합니다. 광고 성과 데이터를 분석해 지속적으로 최적화합니다.' },
+        { icon: '🎯', title: '중소기업 전문 노하우', desc: '중소기업·소상공인의 현실적인 예산과 구조를 누구보다 깊이 이해합니다.' },
+        { icon: '🔍', title: '투명한 보고', desc: '월별 성과 리포트로 광고비가 어떻게 사용되었는지 명확히 공유합니다.' },
+        { icon: '⚡', title: '빠른 커뮤니케이션', desc: '전담 담당자 배정으로 빠른 피드백과 유연한 대응이 가능합니다.' },
+      ],
+      channels: [
+        { icon: '📧', label: 'Email', value: 'contact@vlck.co.kr' },
+        { icon: '📱', label: 'Kakao', value: '카카오톡 @VLCK' },
+        { icon: '📞', label: 'Tel', value: '02-0000-0000' },
+        { icon: '📍', label: 'Office', value: '서울특별시' },
+      ],
+    };
+  }
+}
+</script>
+<script src="./chatbot.js"></script>
+</body>
+</html>
