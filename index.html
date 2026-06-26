@@ -299,11 +299,22 @@ class Component extends DCLogic {
   }
 
   renderVals() {
-    const submit = (e) => {
+    const submit = async (e) => {
       e.preventDefault();
-      if (this.state.name.trim() && this.state.phone.trim()) {
-        this.setState({ submitted: true });
-      }
+      if (!this.state.name.trim() || !this.state.phone.trim()) return;
+      try {
+        await fetch('/api/lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: this.state.name,
+            biz: this.state.biz,
+            phone: this.state.phone,
+            msg: this.state.msg,
+          }),
+        });
+      } catch {}
+      this.setState({ submitted: true });
     };
     return {
       accent: this.props.accent ?? '#1A4EFF',

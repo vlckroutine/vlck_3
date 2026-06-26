@@ -4,9 +4,12 @@ const path = require('path');
 
 require('dotenv').config();
 
+const { getSupabase } = require('./lib/supabase');
+const { embedText, searchSimilar } = require('./lib/rag');
+const { buildFallbackPrompt, buildRagPrompt } = require('./lib/knowledge');
+
 const PORT = process.env.PORT || 3000;
 const ROOT = __dirname;
-const UPLOADS = path.join(ROOT, 'uploads');
 
 const MIME = {
   '.html': 'text/html; charset=utf-8',
@@ -20,98 +23,116 @@ const MIME = {
   '.webp': 'image/webp',
 };
 
-function buildSystemPrompt() {
-  const files = fs.readdirSync(UPLOADS).filter(f => f.endsWith('.md'));
-  const kb = files.map(f => {
-    const content = fs.readFileSync(path.join(UPLOADS, f), 'utf-8');
-    return `=== ${f} ===\n${content}`;
-  }).join('\n\n');
-
-  return `당신은 VLCK Marketing Agency의 AI 상담 어시스턴트입니다. 이름은 "VLCK 봇"입니다.
-아래 지식베이스를 참고하여 방문자의 질문에 답하세요.
-
-[지식베이스]
-${kb}
-
-[답변 규칙]
-1. 자기소개·대화형 질문("이름이 뭐야", "뭘 도와줄 수 있어" 등): 챗봇 이름과 역할을 자연스럽게 소개하세요.
-2. 서비스·정책 질문: 지식베이스 내용만 사용하세요. 정보가 없으면 무료 상담(contact@vlck.co.kr / 카카오톡 @VLCK)을 안내하세요.
-3. 서비스와 무관한 질문(날씨, 시사 등): "저는 VLCK 서비스 관련 질문만 답할 수 있어요 😊"라고 안내하세요.
-4. 지식베이스에 없는 구체적 정보(가격, 일정 등)는 절대 창작하지 마세요.
-5. 친근하고 전문적인 어조를 사용하세요. 답변은 간결하게 유지하세요.`;
+async function getSystemPrompt(question) {
+  try {
+    const supabase = getSupabase();
+    if (supabase) {
+      const embedding = await embedText(question);
+      const chunks = await searchSimilar(supabase, embedding, 5);
+      if (chunks && chunks.length > 0) return buildRagPrompt(chunks);
+    }
+  } catch {}
+  return buildFallbackPrompt();
 }
 
-const SYSTEM_PROMPT = buildSystemPrompt();
+async function logChat(question, answer) {
+  try {
+    const supabase = getSupabase();
+    if (!supabase) return;
+    await supabase.from('chat_logs').insert({ question, answer });
+  } catch {}
+}
 
-async function handleChat(req, res) {
-  let body = '';
-  req.on('data', chunk => { body += chunk; });
-  req.on('end', async () => {
-    try {
-      const { messages } = JSON.parse(body);
-
-      if (!Array.isArray(messages)) {
-        res.writeHead(400, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ error: '잘못된 요청입니다.' }));
-        return;
-      }
-
-      const openaiRes = await fetch('https://api.openai.com/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
-        },
-        body: JSON.stringify({
-          model: 'gpt-5.4-mini',
-          messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...messages],
-          max_completion_tokens: 600,
-          temperature: 0.7,
-        }),
-      });
-
-      if (!openaiRes.ok) {
-        res.writeHead(502, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ error: '응답을 불러올 수 없습니다. 잠시 후 다시 시도해 주세요.' }));
-        return;
-      }
-
-      const data = await openaiRes.json();
-      const reply = data.choices[0].message.content;
-
-      res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ reply }));
-    } catch (e) {
-      res.writeHead(500, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ error: '서버 오류가 발생했습니다.' }));
-    }
+function readBody(req) {
+  return new Promise((resolve, reject) => {
+    let body = '';
+    req.on('data', c => { body += c; });
+    req.on('end', () => {
+      try { resolve(JSON.parse(body)); } catch { reject(new Error('Invalid JSON')); }
+    });
   });
 }
 
-const server = http.createServer((req, res) => {
-  const corsHeaders = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type',
-    'Access-Control-Allow-Methods': 'POST, OPTIONS',
-  };
+function cors(res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+}
+
+function json(res, status, data) {
+  res.writeHead(status, { 'Content-Type': 'application/json' });
+  res.end(JSON.stringify(data));
+}
+
+async function handleChat(req, res) {
+  const { messages } = await readBody(req);
+  if (!Array.isArray(messages) || messages.length === 0) {
+    return json(res, 400, { error: '잘못된 요청입니다.' });
+  }
+
+  const lastQuestion = messages[messages.length - 1]?.content ?? '';
+  const systemPrompt = await getSystemPrompt(lastQuestion);
+
+  const openaiRes = await fetch('https://api.openai.com/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+    },
+    body: JSON.stringify({
+      model: 'gpt-5.4-mini',
+      messages: [{ role: 'system', content: systemPrompt }, ...messages],
+      max_completion_tokens: 600,
+      temperature: 0.7,
+    }),
+  });
+
+  if (!openaiRes.ok) return json(res, 502, { error: '응답을 불러올 수 없습니다.' });
+
+  const data = await openaiRes.json();
+  const reply = data.choices[0].message.content;
+
+  logChat(lastQuestion, reply);
+  json(res, 200, { reply });
+}
+
+async function handleLead(req, res) {
+  const { name, biz, phone, msg } = await readBody(req);
+  if (!name?.trim() || !phone?.trim()) {
+    return json(res, 400, { error: '이름과 연락처는 필수입니다.' });
+  }
+
+  try {
+    const supabase = getSupabase();
+    if (supabase) {
+      const { error } = await supabase.from('leads').insert({ name, biz, phone, msg });
+      if (error) throw error;
+    }
+    json(res, 200, { ok: true });
+  } catch {
+    json(res, 500, { error: '저장 중 오류가 발생했습니다.' });
+  }
+}
+
+const server = http.createServer(async (req, res) => {
+  cors(res);
 
   if (req.method === 'OPTIONS') {
-    res.writeHead(204, corsHeaders);
+    res.writeHead(204);
     res.end();
     return;
   }
 
-  if (req.method === 'POST' && req.url === '/api/chat') {
-    Object.entries(corsHeaders).forEach(([k, v]) => res.setHeader(k, v));
-    handleChat(req, res);
-    return;
+  try {
+    if (req.method === 'POST' && req.url === '/api/chat') return await handleChat(req, res);
+    if (req.method === 'POST' && req.url === '/api/lead') return await handleLead(req, res);
+  } catch {
+    return json(res, 500, { error: '서버 오류가 발생했습니다.' });
   }
 
-  // Static file serving
+  // 정적 파일 서빙
   const urlPath = req.url.split('?')[0];
-  let filePath = path.join(ROOT, urlPath === '/' ? 'index.html' : urlPath);
+  const filePath = path.join(ROOT, urlPath === '/' ? 'index.html' : urlPath);
 
-  // Prevent path traversal
   if (!filePath.startsWith(ROOT + path.sep) && filePath !== ROOT) {
     res.writeHead(403);
     res.end('Forbidden');
@@ -119,11 +140,7 @@ const server = http.createServer((req, res) => {
   }
 
   fs.readFile(filePath, (err, data) => {
-    if (err) {
-      res.writeHead(404, { 'Content-Type': 'text/plain' });
-      res.end('Not Found');
-      return;
-    }
+    if (err) { res.writeHead(404); res.end('Not Found'); return; }
     const ext = path.extname(filePath).toLowerCase();
     res.writeHead(200, { 'Content-Type': MIME[ext] || 'application/octet-stream' });
     res.end(data);
@@ -131,5 +148,7 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(PORT, () => {
-  console.log(`✅ VLCK chatbot server running → http://localhost:${PORT}`);
+  const sb = getSupabase() ? '✅ Supabase 연결됨 (RAG 활성)' : '⚠️  Supabase 미설정 (파일 폴백)';
+  console.log(`✅ VLCK server → http://localhost:${PORT}`);
+  console.log(sb);
 });
